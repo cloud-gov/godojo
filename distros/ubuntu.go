@@ -867,7 +867,7 @@ var u2204SetupDojo = []c.SingleCmd{
 		Cmd: "cd {conf.Install.Root}/django-DefectDojo && source ../bin/activate && python3 manage.py createsuperuser" +
 			" --noinput --username=\"{conf.Install.Admin.User}\" --email=\"{conf.Install.Admin.Email}\"",
 		Errmsg:     "Failed while creating DefectDojo superuser",
-		Hard:       true,
+		Hard:       false,
 		Timeout:    0,
 		BeforeText: "",
 		AfterText:  "",
@@ -876,7 +876,7 @@ var u2204SetupDojo = []c.SingleCmd{
 		Cmd: "cd {conf.Install.Root}/django-DefectDojo && source ../bin/activate && " +
 			"{conf.Install.Root}/django-DefectDojo/setup-superuser.expect {conf.Install.Admin.User} \"{conf.Install.Admin.Pass}\"",
 		Errmsg:     "Failed while setting the password for the DefectDojo superuser",
-		Hard:       true,
+		Hard:       false,
 		Timeout:    0,
 		BeforeText: "",
 		AfterText:  "",

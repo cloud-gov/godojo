@@ -634,7 +634,7 @@ func prepPostgreSQL(d *DDConfig, t *targetOS) error {
 	_, err = runPgSQLCmd(d, createUsr)
 	if err != nil {
 		d.traceMsg("Failed to create database user for DefectDojo")
-		d.traceMsg("Continuing after error creating user, non-fatal error")
+		return err
 	}
 
 	// Remote DBs cannot have their pg_hba.conf modified (duh)

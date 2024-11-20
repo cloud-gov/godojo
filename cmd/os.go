@@ -84,6 +84,8 @@ func determineLinux(d *DDConfig, tOS *targetOS) {
 			tOS.distro = "rhel"
 			tOS.release = onlyMajorVer(tOS.release)
 			tOS.id = tOS.distro + ":" + tOS.release
+			// Check to make sure we're using a newer Python than the OS ships with
+			checkOldPythonForRHEL(d)
 			return
 		}
 		if strings.Contains(strings.ToLower(tOS.distro), "rhel") {
@@ -91,6 +93,8 @@ func determineLinux(d *DDConfig, tOS *targetOS) {
 			tOS.distro = "rhel"
 			tOS.release = onlyMajorVer(tOS.release)
 			tOS.id = tOS.distro + ":" + tOS.release
+			// Check to make sure we're using a newer Python than the OS ships with
+			checkOldPythonForRHEL(d)
 			return
 		}
 		return
@@ -153,6 +157,23 @@ func determineLinux(d *DDConfig, tOS *targetOS) {
 	d.traceMsg("Unable to determine the linux distro, assuming unsupported.")
 	d.errorMsg("Unable to determine the Linux install target, quitting")
 	os.Exit(1)
+}
+
+func checkOldPythonForRHEL(d *DDConfig) {
+	d.traceMsg(fmt.Sprintf("Python path is %s\n", d.conf.Options.PyPath))
+	// RHEL 8's latest Python is 3.9
+	// Python 3.9 is too old for DB migrations so PyPath is must be set to install on RHEL 8
+	// If PyPath is set to Python 3.9, then error out
+	if strings.Compare(d.conf.Options.PyPath, "/usr/bin/python3.9") == 0 {
+		// For DD versions greater than 2.31.0, ENV variable PYPATH needs to be sent to an alternate install of Python
+		d.errorMsg("RHEL 8 requires setting PYPATH environmental variable to a Python 3.11.x installation\n" +
+			"         Either set an explicit path to a Python 3.11.x install or\n" +
+			"         Use update-alternatives / symlinks to have default Python be v3.11.x\n" +
+			"         godojo assumes the default Python is at /usr/bin/python3")
+		os.Exit(1)
+	}
+
+	return
 }
 
 func parseOSRelease(d *DDConfig, f string) (string, string, string) {

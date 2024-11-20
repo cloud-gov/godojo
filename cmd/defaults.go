@@ -59,8 +59,8 @@ func (d *DDConfig) setGodojoDefaults() {
 
 	// Set some installer defaults - .deb specific
 	d.helpURL = "https://github.com/DefectDojo/godojo"
-	d.releaseURL = "https://github.com/cloud-gov/django-DefectDojo/archive/"
-	d.cloneURL = "https://github.com/cloud-gov/django-DefectDojo.git"
+	d.releaseURL = "https://github.com/DefectDojo/django-DefectDojo/archive/"
+	d.cloneURL = "https://github.com/DefectDojo/django-DefectDojo.git"
 	d.yarnGPG = "https://dl.yarnpkg.com/debian/pubkey.gpg"
 	d.yarnRepo = "deb https://dl.yarnpkg.com/debian/ stable main"
 	d.nodeURL = "https://deb.nodesource.com/setup_18.x"

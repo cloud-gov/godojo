@@ -625,8 +625,8 @@ func prepPostgreSQL(d *DDConfig, t *targetOS) error {
 	d.traceMsg("Creating PostgreSQL DB user for DefectDojo")
 	createUsr := sqlStr{
 		os: t.id,
-		sql: "DO $do$ BEGIN IF EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname = '" + d.conf.Install.DB.User + "') THEN RAISE NOTICE 'User already exists. Skipping.'; ELSE BEGIN CREATE USER " + d.conf.Install.DB.User + " WITH ENCRYPTED PASSWORD '" +
-			d.conf.Install.DB.Pass + "'; EXCEPTION WHEN duplicate_object THEN RAISE NOTICE 'User was created by a concurrent transaction. Skipping.'; END; END IF; END $do$;",
+		sql: "CREATE USER " + d.conf.Install.DB.User + " WITH ENCRYPTED PASSWORD '" +
+			d.conf.Install.DB.Pass + "';",
 		errMsg: "Unable to create a PostgreSQL database user for DefectDojo",
 		creds:  creds,
 		kind:   "try",
@@ -634,7 +634,7 @@ func prepPostgreSQL(d *DDConfig, t *targetOS) error {
 	_, err = runPgSQLCmd(d, createUsr)
 	if err != nil {
 		d.traceMsg("Failed to create database user for DefectDojo")
-		return err
+		d.traceMsg("Continuing after error creating user, non-fatal error")
 	}
 
 	// Remote DBs cannot have their pg_hba.conf modified (duh)

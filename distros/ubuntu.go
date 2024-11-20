@@ -193,7 +193,7 @@ var u2204Bootstrap = []c.SingleCmd{
 		AfterText:  "",
 	},
 	c.SingleCmd{
-		Cmd:        "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" install python3 python3-virtualenv ca-certificates curl gnupg git sudo",
+		Cmd:        "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" install python3.11 python3-virtualenv ca-certificates curl gnupg git sudo",
 		Errmsg:     "Unable to install prerequisites for installer via apt",
 		Hard:       true,
 		Timeout:    0,

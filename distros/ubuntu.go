@@ -289,7 +289,7 @@ var u2204InstallerPrep = []c.SingleCmd{
 		AfterText:  "",
 	},
 	c.SingleCmd{
-		Cmd:        "DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https libjpeg-dev gcc libssl-dev python3-dev python3-pip python3-virtualenv yarn build-essential expect libcurl4-openssl-dev",
+		Cmd:        "DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https libjpeg-dev gcc libssl-dev python3.11-dev python3-pip python3-virtualenv nodejs yarn build-essential expect libcurl4-openssl-dev",
 		Errmsg:     "Installing OS packages with apt failed",
 		Hard:       true,
 		Timeout:    0,
@@ -678,7 +678,7 @@ var u2204PrepDjango = []c.SingleCmd{
 		AfterText:  "",
 	},
 	c.SingleCmd{
-		Cmd:        "{conf.Install.Root}/bin/pip3 install --upgrade setuptools",
+		Cmd:        "{conf.Install.Root}/bin/pip3.11 install --upgrade setuptools",
 		Errmsg:     "",
 		Hard:       true,
 		Timeout:    0,
@@ -686,7 +686,7 @@ var u2204PrepDjango = []c.SingleCmd{
 		AfterText:  "",
 	},
 	c.SingleCmd{
-		Cmd:        "{conf.Install.Root}/bin/pip3 install -r {conf.Install.Root}/django-DefectDojo/requirements.txt",
+		Cmd:        "{conf.Install.Root}/bin/pip3.11 install -r {conf.Install.Root}/django-DefectDojo/requirements.txt",
 		Errmsg:     "Unable to install Python3 modules for DefectDojo",
 		Hard:       true,
 		Timeout:    0,

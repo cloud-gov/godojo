@@ -394,7 +394,7 @@ func prepMySQL(d *DDConfig, osTar string) error {
 	d.traceMsg("Creating MySQL DB user for DefectDojo")
 	createUsr := sqlStr{
 		os: osTar,
-		sql: "CREATE USER '" + d.conf.Install.DB.User + "'@'" + usrHost +
+		sql: "CREATE USER IF NOT EXISTS '" + d.conf.Install.DB.User + "'@'" + usrHost +
 			"' IDENTIFIED BY '" + d.conf.Install.DB.Pass + "';",
 		errMsg: "Unable to create a MySQL database user for DefectDojo",
 		creds:  creds,
@@ -634,7 +634,7 @@ func prepPostgreSQL(d *DDConfig, t *targetOS) error {
 	_, err = runPgSQLCmd(d, createUsr)
 	if err != nil {
 		d.traceMsg("Failed to create database user for DefectDojo")
-		return err
+		d.traceMsg("Continuing after error creating user, non-fatal error")
 	}
 
 	// Remote DBs cannot have their pg_hba.conf modified (duh)
@@ -655,6 +655,21 @@ func prepPostgreSQL(d *DDConfig, t *targetOS) error {
 	_, err = runPgSQLCmd(d, grantPrivs)
 	if err != nil {
 		d.traceMsg("Failed to grant privileges to database user for DefectDojo")
+		return err
+	}
+
+	// Set the DefectDojo db user as the owner of dojodb
+	d.traceMsg("Seting DefectDojo db user as the owner of the DB")
+	setPrivs := sqlStr{
+		os:     t.id,
+		sql:    "ALTER DATABASE " + d.conf.Install.DB.Name + " OWNER TO " + d.conf.Install.DB.User + ";",
+		errMsg: "Unable to set database user as owner of DefectDojo DB",
+		creds:  creds,
+		kind:   "try",
+	}
+	_, err = runPgSQLCmd(d, setPrivs)
+	if err != nil {
+		d.traceMsg("Failed to set ownership to database user for DefectDojo DB")
 		return err
 	}
 

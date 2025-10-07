@@ -13,9 +13,9 @@ import (
 
 	"github.com/briandowns/spinner"
 	"github.com/defectdojo/godojo/distros"
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
 	c "github.com/mtesauro/commandeer"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
 // bootstrapInstall takes a pointer to a DDConfig struct and a targetOS struct

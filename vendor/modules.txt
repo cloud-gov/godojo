@@ -35,7 +35,7 @@ github.com/ProtonMail/go-crypto/openpgp/x448
 # github.com/briandowns/spinner v1.23.2
 ## explicit; go 1.17
 github.com/briandowns/spinner
-# github.com/cloudflare/circl v1.6.1
+# github.com/cloudflare/circl v1.6.3
 ## explicit; go 1.22.0
 github.com/cloudflare/circl/dh/x25519
 github.com/cloudflare/circl/dh/x448

@@ -74,13 +74,13 @@ func bootstrapInstall(d *DDConfig, t *targetOS) {
 
 // validPython checks to ensure the correct version of Python is available
 func validPython(d *DDConfig) {
-	d.sectionMsg("Checking for Python 3.11")
+	d.sectionMsg("Checking for Python 3.13")
 	if checkPythonVersion(d) {
-		d.statusMsg("Python 3.11 found, install can continue")
+		d.statusMsg("Python 3.13 found, install can continue")
 	} else {
-		d.errorMsg("Python 3.11 wasn't found, quitting installer\n" +
-			"         Please set PYPATH to a Python 3.11.x installation\n" +
-			"         And re-run godojo like: 'PYPATH=\"/path/to/python3.11\" ./godojo'")
+		d.errorMsg("Python 3.13 wasn't found, quitting installer\n" +
+			"         Please set PYPATH to a Python 3.13.x installation\n" +
+			"         And re-run godojo like: 'PYPATH=\"/path/to/python3.13\" ./godojo'")
 		os.Exit(1)
 	}
 }
@@ -110,7 +110,7 @@ func checkPythonVersion(d *DDConfig) bool {
 	pyVer := line[1]
 
 	// Return true or false depending on Python version
-	return strings.HasPrefix(pyVer, "3.11")
+	return strings.HasPrefix(pyVer, "3.13")
 }
 
 // downloadDojo takes a ponter to DDConfig and downloads a release or source

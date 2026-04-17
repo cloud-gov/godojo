@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/briandowns/spinner v1.23.2
-	github.com/go-git/go-git/v5 v5.17.1
+	github.com/go-git/go-git/v5 v5.18.0
 	github.com/mtesauro/commandeer v1.1.4
 	github.com/spf13/viper v1.20.0
 	golang.org/x/text v0.31.0
